@@ -1,0 +1,27 @@
+spring:
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer #消息的key的序列化
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer #消息的value的序列化
+      acks: 1 #0-不应答 1-leader应答 all-所有leader和follower应答
+      retries: 3 #发送失败时，重试发送的次数
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest #设置消费者分组最初的消费进度为earliest
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: com.jzjr.kafkademo.message
+    listener:
+      missing-topics-fatal: false #消费监听接口监听的主题不存在时，默认会报错，所以通过设置false解决报错
+
+logging:
+  level:
+    org:
+    springframework:
+      kafka: ERROR # spring-kafka INFO 日志太多了，所以我们限制只打印 ERROR 级别
+    apache:
+      kafka: ERROR # kafka INFO 日志太多了，所以我们限制只打印 ERROR 级别
