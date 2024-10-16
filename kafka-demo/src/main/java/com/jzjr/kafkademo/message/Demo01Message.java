@@ -4,8 +4,6 @@ package com.jzjr.kafkademo.message;
  * 示例01的message消息
  */
 public class Demo01Message {
-    public static final String TOPIC = "DEMO_01";
-
     /**
      * 编号
      */
